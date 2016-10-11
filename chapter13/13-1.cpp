@@ -55,8 +55,6 @@ void print_last_k_lines(std::string file_name, int k)
 	else
 		std::cout << "Unable to open file.\n";
 
-	// std::cout << "lines: " << lines << std::endl;
-
 	// If less than K lines were read, print them all
 	int start, count;
 	if(lines < k)
@@ -69,12 +67,6 @@ void print_last_k_lines(std::string file_name, int k)
 		start = lines % k;
 		count = k;
 	}
-
-	// for(int i=0; i<k; ++i)
-	// 	std::cout << res[i] << std::endl;
-
-	// std::cout << "start: " << start << std::endl;
-	// std::cout << "count: " << count << std::endl;
 
 	for(int i=0; i<count; ++i)
 		std::cout << res[(start+i) % k] << std::endl;
@@ -93,7 +85,6 @@ void generate_file(std::string file_name, int line_count)
 			std::string tmp;
 			for(int i=0; i<line_count; ++i)
 			{
-				// 
 				tmp = "This is line #" + std::to_string(i+1);
 				myfile << tmp << '\n';
 			}
@@ -102,7 +93,6 @@ void generate_file(std::string file_name, int line_count)
 		else
 			std::cout << "Unable to open file.\n";
 	}
-	// std::cout << "File already exists.\n";
 	infile.close();
 }
 
