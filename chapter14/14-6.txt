@@ -1,0 +1,22 @@
+14.6 Suppose you are using a map in your program, how would you count the
+     number of times the program calls the put() and get() functions?
+
+
+First attempt:
+
+If I am using a map, I would simply count the times they get called. Am I
+missing anything?
+
+
+The answer:
+
+One simple solution is to put count variables for get() and put() methods and,
+whenever they are called, increment the count. We can also achieve this by
+extending library map and overriding the get() and put() functions.
+
+At first glance, this seems to work. However, what if we created multiple
+instances of the map? How would you sum up the total count for each map object?
+
+The simplest solution for this is to keep the count variables static. We know
+static variables have only one copy for all objects of the class so the total
+count would be reflected in count variables.

@@ -1,0 +1,34 @@
+14.3 What is the difference between final, finally, and finalize?
+
+
+First attempt:
+
+Well, I'll make some guesses. 
+
+final has different meanings for class, methods
+and variables. A final class cannot be subclassed. A final method cannot be 
+overridden. A final variable cannot be modified.
+
+For finally, it's a block that got executed no matter what after a try/catch
+block.
+
+As for finalize, I'm not sure about this.
+
+
+The answer:
+
+final
+When applied to variable (primitive): The value of the variable cannot change.
+When applied to variable (reference): The reference variable cannot point to
+any other object on the heap.
+when applied to a method: The method cannot be overridden.
+When applied to a class: The class cannot be subclassed.
+
+finally
+There is an optional finally block after the try block or after the catch block
+. Statements in the finally block will always be executed (except the JVM exits
+from the try block). The finally block is used to write the clean up code.
+
+finalize
+This is the method that the JVM runs befores running the garbage collector.
+

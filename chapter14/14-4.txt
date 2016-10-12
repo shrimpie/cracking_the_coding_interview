@@ -1,0 +1,48 @@
+14.4 Explain the difference between templates in C++ and generics in Java.
+
+First attempt:
+
+Well, a huge subject. Lets go straight to the answer.
+
+Templates in C++:
+1. Classes and functions can be templated.
+2. Parameters can be any type or integral value.
+3. Separate copies of the class or function are likely to be generated for each
+   type parameter when compiled.
+4. Objects of a class with different type parameters are different types at run
+   time.
+5. Implementation source code of the templated class or function must be
+   included in order to use it (declaration insufficient).
+6. Templates can be specialized - a separate implementation could be provided 
+   for a particular template parameter.
+7. Does not support wildcards. Instead, return types are often available as
+   nested typedefs.
+8. Does not directly support bounding of type parameters, but metaprogramming
+   provides this.
+9. Allows instantiation of class of type parameter type.
+10. Type parameter of templated class can be used for static methods and
+    variables.
+11. Static variables are not shared between classes of different type
+    parameters.
+
+
+Java Generics
+1. Classes and functions can be genericized.
+2. Parameters can only be reference types (not primitive types).
+3. One version of the class or function is compiled, works for all type 
+   parameters.
+4. Type parameters are erased when compiled; objects of a class with different
+   type parameters are the same type at run time.
+5. Signature of the class or function from a compiled class file is sufficient
+   to use it.
+6. Generics cannot be specialized.
+7. Supports wildcard as type parameter if it is only used once.
+8. Supports bounding of type parameters with "extends" and "super" for upper
+   and lower bounds, respectively; allows enforcement of relationships between
+   type parameters.
+9. Does not allow instantiation of class of type parameter type.
+10. Type parameter of templated class cannot be used for static methods and
+    variables.
+11. Static variables are shared between instances of a classes of different
+    type parameters.
+
