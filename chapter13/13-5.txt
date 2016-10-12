@@ -1,0 +1,62 @@
+// Not coding question either.
+// 13.5 What is the significance of the keyword "volatile" in C?
+
+First attempt:
+Volatile means the address of the defined variable is changeable during the
+execution of the program, even though it's declared const or what.
+
+Correction: Well, not exactly right. It's most sigificant feature is the
+variable can be modified from outside, not within the code. 
+
+The answer:
+Volatile informs the compiler that the value of the variable can change from the
+outside, without any update done by the code.
+
+Declaring a simple volatile variable:
+    volatile int x;
+    int volatile x;
+
+Declaring a pointer variable for a volatile memory (only the pointer address is
+volatile):
+    int * volatile x;
+
+Declaring a volatile variable pointer for a volatile memory (both the pointer
+address and memory contained are volatile):
+    volatile int * volatile x;
+    int volatile * volatile x;
+
+Volatile variables are not optimized, but this can be actually be useful.
+Imagine this function:
+    int opt = 1;
+    void Fn(void)
+    {
+    	start:
+    		if (opt == 1)
+    			goto start;
+    		else
+    			break;
+    }
+At first glance, our code appears to loop infinitely. The compiler will try to
+optimize it to:
+    void Fn(void)
+    {
+    	start:
+    		int opt = 1;
+    		if (true)
+    			goto start;
+    }
+This becomes an infinite loop. However, an external program might write '0' to
+location of variable opt. Volatile variables are also useful when
+multi-threaded programs have global variables and any thread can modify these
+shared variables. Of course, we don't want optimization on them.
+
+
+
+
+
+
+
+
+
+
+

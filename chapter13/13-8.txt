@@ -1,0 +1,42 @@
+// 13.8 Write a method that takes a pointer to a Node structure as a parameter
+//      and returns a complete copy of the passed-in data structure. The node
+//      structure contains two pointers to other Node structures.
+
+// Note: pointers of pointed-to node needs to be copied too, recursive style.
+
+The answer:
+The algorithm will maintain a mapping from a node address in the orignal
+structure to the corrsponding node in the new structure. This mapping will
+allow us to discover previously copied nodes during a traditional depth first
+traversal of the structure. (Traversals often mark visited nodes-the mark can
+take many forms and does not necessarily need to be stored in the node.) Thus,
+we have a simple recursive algorithm:
+
+typedef map<Node*, Node*> NodeMap;
+
+Node* copy_recursive(Node* cur, NodeMap & nodeMap)
+{
+	if(cur == NULL)
+		return NULL;
+	NodeMap::iterator i = nodeMap.find(cur);
+	if( i != nodeMap.end())
+	{
+		// we've been here before, return the copy
+		return i->second;
+	}
+	Node* node = new Node;
+	nodeMap[cur] = node; // Map current node before traversing links
+	node->ptr1 = copy_recursive(cur->ptr1, nodeMap);
+	node->ptr2 = copy_recursive(cur->ptr2, nodeMap);
+	return node;
+}
+
+Node* copy_structure(Node* root)
+{
+	NodeMap nodeMap; // We will need an empty map
+	return copy_recursive(root, nodeMap);
+}
+
+
+// Note this one needs to be checked with real examples, not sure about it for
+// now.
