@@ -1,0 +1,20 @@
+16.4 Write a step by step execution of things that happen after a user presses
+     key on the keyboard. Use as much detail as possible.
+
+
+Solution:
+
+1. The keyboard sends a scan code of the key to the keyboard controller (Scan
+   code for key pressed and key released is different).
+2. The keyboard controller interprets the scan code and stores it in a buffer.
+3. The keyboard controller sends a hardware interrupt to the processor. This is
+   done by putting signal on "interrupt request line": IRQ 1.
+4. The interrupt controller maps IRQ 1 into INT 9.
+5. An interrupt is a signal which tells the processor to stop what it was doing
+   currently and do some special task.
+6. The processor invokes the "Interrupt handler". CPU fetches the address of
+   "Interrupt Service Routine" (ISR) from "Interrupt Vector Table" maintained 
+   by the OS (processor use the IRQ number for this).
+7. The ISR reads the scan code from port 60h and decides whether to process it 
+   or pass the control to program for taking action.
+

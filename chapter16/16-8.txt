@@ -1,0 +1,18 @@
+16.8 A device boots with an empty FIFO queue. In the first 400 ns period after
+     startup, and in each subsequent 400 ns period, a maximum of 80 words will 
+     be written to the queue. Each write takes 4 ns. A worker thread requires 
+     3 ns to read a word, and 2 ns to process it before reading the next word.
+     What is the shortest depth of the FIFO such that no data is lost.
+
+Solution:
+
+Not so sure about the solution. But from what I understand, a maximum of 160 
+writes at the end of first period and the start of the second period would give
+the worst case scenario. For this case, 640 ns of writes is needed (160 * 4 ns
+= 640 ns), and during the same time, only 128 words could be processed (640 / 
+( 3 + 2) ns = 128). So plus one slot due to that first read cannot start until 
+the first write has finished (why is this?), and another slot to ensure a write
+does not trash the contents of a concurrently occuring read. Thus a safe
+estimate of the queue length is 34 (160 -128 + 1 + 1 = 34).
+
+Please rethink about this problem.

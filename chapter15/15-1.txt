@@ -1,0 +1,16 @@
+15.1 Write a method to find the number of employees in each department.
+
+
+Solution:
+
+This problem uses a straight-forward join of Departments and Employees. Note
+that we use a left join instead of an inner join because we want to include
+Departments with 0 employees.
+
+    select dept_name, departments.dept_id, count(*) as 'num_employees'
+    from departments
+    left join employees
+    on employees.dept_id = departments.dept_id
+    group by departments.dept_id, dept_name
+
+ 

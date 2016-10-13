@@ -1,0 +1,28 @@
+16.2 What is a Branch Target Buffer? Explain how it can be used in reducing 
+     bubble cycles in cases of branch misprediction.
+
+
+First attempt:
+
+Wow, never heard of this thing. Is it some kind of technique to increase the 
+program execution speed by predict next instructions?
+
+
+The answer:
+
+Branch misprediction occurs when CPU mispredicts the next instruction to be 
+executed.
+
+The CPU uses pipelining which allows several instructions to be processed 
+simultaneously. But during a conditional jump, the next instruction to be 
+executed depends on the result of the condition. Branch Prediction tries to 
+guess the next instruction. However, if the guess is wrong, we are penalized
+because the instruction which was executed must be discarded.
+
+Branch Target Buffer (BTB) reduces the penalty by predicting the path of the 
+branch, computing the target of the branch and caching the information used by
+the branch. There will be no stalls if the branch entry found on BTB and the 
+prediction is correct, otherwise the penalty will be at least two cycles.
+
+
+

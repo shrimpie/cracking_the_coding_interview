@@ -1,0 +1,93 @@
+15.2 What are the different types of joins? Please explain how they differ and
+     why certain types are better in certain situations.
+
+
+Solution:
+
+Join is used to combine the results of two tables. To perform a join, each of
+the tables must have at least one field which will be used to find matching
+records from the other table. The join type defines which records will go into
+the result set.
+
+Let's take for example two tables: one table lists "regular" beverages, and 
+another lists the calorie-free beverages. Each table has two fields: the
+beverage name and its product code. The "code" field will be used to perform
+the record matching.
+
+    Regular Beverages:
+    ---------------------------------
+    |Name          |            code|
+    ---------------------------------
+    |Budweiser     |       BUDWEISER|
+    ---------------------------------
+    |Coca-Cola     |        COCACOLA|
+    ---------------------------------
+    |Pepsi         |           PEPSI|
+    ---------------------------------
+
+    Calorie-free Beverages:
+    -------------------------------------
+    |Code          |                Name|
+    -------------------------------------
+    |COCACOLA      |     Diet Coca-Cola |
+    -------------------------------------
+    |FRESCA        |              Fresca|
+    -------------------------------------
+    |PEPSI         |          Diet Pepsi|
+    -------------------------------------
+    |PEPSI         |         Pepsi Light|
+    -------------------------------------
+    |Water         |      Purified Water|
+    -------------------------------------
+
+Let's join this table by the code field. Whereas the order of the joined tables
+makes sense in some cases, we will consider the following statement:
+    [Beverages] JOIN [Calorie-free Beverage]
+i.e. [Beverage] is from the left of the join operator, and [Calorie-free
+Beverage] is from the right.
+
+1. Inner Join: result set will contain only those data where the criteria match
+   . In our example we will get 3 records: 1 with COCACOLA and 2 with PEPSI
+   codes.
+
+2. Outer Join: Outer join will always contain the results of inner join,
+   however it can contain some records that have no matching record in other
+   table. Outer joins are divided to following subtypes:
+
+   2.1 Left outer join, or simply left join: The result will contain all
+       records from the left table. If no matching records were found in the 
+       right table, then its fields will contain the NULL values. In our 
+       example, we would get 4 records. In addition to inner join results, 
+       BUDWEISER will be listed, because it was in the left table.
+
+   2.2 Right outer join, or right join: This type of join is the opposite of
+       left join; it will contain all records from the right table, and missing
+       fields from the left table will contain NULL. If we have two tables A
+       and B, then we can say that statement A left join B is equivalent to 
+       statement B right join A.
+       In our example, we will get 5 records. In addition to inner join results
+       , FRESCA and Water records will be listed.
+
+   2.3 Full outer join: This type of join combines the results of left and
+       right joins. All records from both tables will be part of the result set
+       , whether the matching record exists in the other table or not. If no 
+       matching record was found then the corresponding result fields will have
+       a NULL value.
+       In our example, we will get 6 records.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

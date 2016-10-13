@@ -1,0 +1,79 @@
+16.6 Discuss how would you make sure that a process doesn't access an
+     unauthorized part of the stack.
+
+
+Solution:
+
+As with any ambiguously worded interview question, it may help to probe the
+interviewer to understand what specifically you're intended to solve. Are you 
+trying to prevent code that has overflowed a buffer compromising the execution 
+by overwriting stack values? Are you trying to maintain some form of 
+thread-specific isolation between threads? Is the code of interest native code
+like C++ or running under a virtual machine like Java?
+
+Remember that, in a multi-threaded environment, there can be multiple stacks in
+a process.
+
+Native code
+
+One threat to the stack is malicious program input, which can overflow a buffer
+and overwrite stack pointers, thus circumventing the intended execution of the program.
+
+If the interviewer is looking for a simple method to reduce the risk of buffer 
+overflows in native code, modern compliers provide this sort of stack 
+protection through a command line option. With Microsoft's CL, you just pass 
+/GS to the compiler. With GCC, you can use -fstack-protector-all.
+
+For more complex schemes, you could set individual permissions on the range of 
+memory pages representing the stack section you care about. In the Win32 API, 
+you'd use the VirtualProtect API to mark the page PAGE_READONLY or 
+PAGE_NOACCESS. This will cause the code accessing the region to go through an 
+exception on access to the specific section of the stack.
+
+Alternatively, you could use the HW Debug Register (DRs) to set a read or write
+breakpoint on the specific memory addresses of interest. A separate process
+could be used to debug the process of interest, catch the HW exception that 
+would be generated if this section of the stack were accessed.
+
+
+However, it's very important to note that under normal circumstances, threads 
+and processes are not means of access control. Nothing can prevent native code
+from writing anywhere within the address space of its process, including to the
+stack. Specifically, there is nothing to prevent malicious code in the process 
+from calling VirtualProtect and marking the stack sections of interest 
+PAGE_EXECUTE_READWRITE. Equally so, nothing prevents code from zeroing out the 
+HW debug registers, eliminating your breakpoints. In summary, nothing can fully
+prevent native code from accessing memory addresses, including the stack, 
+within its own process space.
+
+A final option is to consider requiring this code that should be "sandboxed" to
+run in a managed language like Java or C#/.NET. By default, the virtual 
+machines running managed code in these languages make it impossible to gain 
+complete access to the stack from within the process.
+
+One can use further security features of the runtimes to prevent the code from
+spawning additional processes or running "unsafe" code to inspect the stack. 
+With .NET, for example, you can use Code Access Security (CAS) or appdomain 
+permissions to control such execution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

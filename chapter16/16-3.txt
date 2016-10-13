@@ -1,0 +1,17 @@
+16.3 Describe direct memory access (DMA). Can a user level buffer / pointer be 
+     used by kernal or drivers?
+
+
+Solution:
+Direct memory is a feature which provides direct access (read/write) to system 
+memory without interaction from the CPU. The "DMA Controller" manages this by 
+requesting the System bus access (DMA request) from CPU. CPU completes its 
+current task and grants access by asserting DMA acknowledge signal. Once it 
+gets the access, it reads/writes the data and returns back the system bus to 
+the CPU by asserting the bus release signal. This transfer is faster than the 
+usual transfer by CPU. Between this time CPU is involved with processing task 
+which doesn't require memory access.
+
+By using DMA, drivers can access the memory allocated to the user level buffer
+ / pointer.
+
