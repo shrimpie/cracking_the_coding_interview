@@ -1,0 +1,68 @@
+18.5 Suppose we have the following code:
+
+     class Foo {
+     public:
+     	A(...); /* If A is called, a new thread will be created and 
+     			 * the corresponding function will be executed. */
+     	B(...); /* same as above */
+     	C(...); /* same as above */
+     }
+     Foo f;
+     f.A();
+     f.B();
+     f.C();
+
+     i) Can you design a mechanisim to make sure that B is executed after A,
+        and C is executed after B?
+     ii) Suppose we have the following code to use class Foo. We do not know 
+        how the threads will be scheduled in the OS.
+          Foo f;
+          f.A(); f.B(); f.C(); f.A(); f.B(); f.C();
+        Can you design a mechanism to make sure that all the methods will be
+        executed in sequence?
+
+Solution
+
+i) 
+    Semaphore s_a(0);
+	Semaphore s_b(0);
+	A {
+		/* ... */ 
+		s_a.release(1);
+	}
+	B {
+		s_a.acquire(1);
+		/* ... */ 
+		s_b.release(1);
+	}
+	C {
+		s_b.acquire(1);
+		/* ... */ 
+	}
+
+ii)
+	Semaphore s_a(0);
+	Semaphore s_b(0);
+	Semaphore s_c(1);
+	A {
+	    s_c.acquire(1);
+		/* ... */ 
+		s_a.release(1);
+	}
+	B {
+		s_a.acquire(1);
+		/* ... */ 
+		s_b.release(1);
+	}
+	C {
+		s_b.acquire(1);
+		/* ... */ 
+		s_c.release(1);
+	}
+
+
+
+
+
+
+

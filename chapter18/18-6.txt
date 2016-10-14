@@ -1,0 +1,69 @@
+18.6 You are given a class with synchronized method A, and a normal method C. 
+     If you have two threads in one instance of a program, can they call A at 
+     the same time? Can they call A and C at the same time?
+
+
+Solution (in Java):
+
+Java provides two ways to achieve synchronization: synchronized method and 
+synchronized statement.
+
+Synchronized method: Methdods of a class which need to be synchronized are 
+declared with "synchronized" keyword. If one thread is executing a 
+synchronized method, all other threads which want to execute any of the 
+synchronized methods on the same objects get blocked.
+
+Syntax: method1 and method2 need to be synchronized
+    public class synchronizedMethod {
+    	// Variables declaration
+    	public synchronized returntype method1()
+    	{
+    		// statements
+    	}
+    	public synchronized returntype method2()
+    	{
+    		// statements
+    	}
+    	// other methods
+    }
+
+Synchronized statements: It provides the synchronization for a group of 
+statements rather than a method as a whole. It needs to provide the object on 
+which these synchronized statements will be applied, unlike in a synchronized 
+method.
+
+Syntax: synchronized statements on "this" object
+    synchronized(this)
+    {
+    	/* statement 1
+    	 * ...
+    	 * statement N */
+    }
+
+
+i) If you have two threads in one instance of a program, can they call A at the
+   same time?
+
+Not possible; read the above paragraph.
+
+ii) Can they call A and C at the same time?
+
+Yes. Only methods of the same object which are declared with the keyword 
+synchronized can't be interleaved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

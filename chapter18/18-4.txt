@@ -1,0 +1,65 @@
+18.4 Design a class which provides a lock only if there are no possible 
+     deadlocks.
+
+
+Idea:
+
+This is extracted from StackOverflow:
+http://stackoverflow.com/questions/5171649/design-a-class-which-provides-a-lock-only-if-there-are-no-possible-deadlocks
+
+Deadlock will occur with a lock only if the locks can be held in a circular 
+fashion; that is, if you define an ordering < on locks such that A < B only 
+if lock A can be held with lock B also held, then < is not a strict partial 
+ordering. For example, if thread 1 tries to acquire lock A and then lock B, 
+while thread 2 tries to acquire lock B and then lock A, then A < B and B < A,
+so < is not a strict partial ordering. Indeed, deadlock can occur if threads
+1 and 2 each get locks A and B, respectively, then try to acquire the other 
+lock.
+
+To detect this sort of condition dynamically, one option is to maintain a 
+directed graph of the locks in the system. Whenever a thread tries to acquire
+a lock, add an edge from each lock that it holds to the lock it's trying to 
+acquire. If this action forms a cycle, then deadlock is about to occur 
+because some other thread owns the lock you're pointing at and is trying to 
+acquire some other lock. This structure would be global and you'd need to 
+take the appropriate precautions to ensure that it was synchronized correctly.
+However, it would give you a very direct way of detecting whether or not 
+deadlock was about to occur.
+
+EDIT: Here's a sketch of a simple implementation scheme. I assume that you 
+have as a primitive a naive mutex lock that does not prevent deadlock, along
+with the ability to store some data on a per-thread basis.
+
+Inside of the smart lock class, create a static mutex shared by all instances 
+of the lock that guards access to the ownership graph. Also, create a map 
+associating each lock with the set of locks it has edges to. Finally, set up 
+a per-thread set of all the locks owned by that thread.
+
+When a thread tries to acquire a smart lock, first acquire the static mutex 
+to ensure exclusive access to the graph structure. For each of the locks 
+owned by that thread, add an edge in the static graph from that lock to the 
+lock being acquired. Now, run a depth-first search over the graph starting 
+from each of the locks held by the current thread looking for cycles. This 
+takes time linear in the size of the graph, which is at worst quadratic in 
+the number of locks in the system (though this is extremely unlikely to 
+occur, since it would mean that a large fraction of the locks are somehow 
+reachable from the thread's locks). If a cycle is found, deadlock is about to 
+occur and you should take some sort of corrective action. Otherwise, release 
+the static lock to allow other threads access to the graph.
+
+When a thread actually acquires a lock, add that lock to the thread's set of 
+owned locks.
+
+When a thread releases a lock, acquire the static graph lock and remove all 
+incoming edges to the node for that lock that correspond to other locks held 
+by the current thread, then release the lock.
+
+
+Comment:
+The whole idea behind this thing is to find cycle in the lock graph, once a 
+cycle is found, there is a deadlock, and do corrections as needed; if 
+otherwise, acquire the lock (and release the lock) properly.
+
+
+
+

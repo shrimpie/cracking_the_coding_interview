@@ -1,0 +1,13 @@
+18.2 How can you measure the time spent in a context switch?
+
+
+Solution
+
+This is a tricky question, but let's start with a possible solution.
+
+A context switch is the time spent switching between two processes.
+
+Context switch time = all processes execution time  - (sum for all processes(waiting time + execution time)).
+
+
+The answer given is not that satisfactory. Plase google it to find more detail.
