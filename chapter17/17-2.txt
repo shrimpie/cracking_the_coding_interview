@@ -1,0 +1,43 @@
+17.2 Explain any common routing protocol in detail. For example: BGP, OSPF, 
+     RIP.
+
+
+Solution:
+
+Depending on the reader's level of understanding, knowledge, interest or career
+aspirations, he or she may wish to explore beyoung what is included here. 
+Wikipedia and other websites are great places to seek for a deeper 
+understanding. We will provide only a short summary.
+
+BGP: Border Gateway Protocol
+
+BGP is the core routing protocol of the Internet. "When a BGP router first 
+comes up on the Internet, either for the first time or after being turned off, 
+it establishes connections with the other BGP routers with which it directly 
+communicates. The first thing it does is download the entire routing table of 
+each neighboring router. After that it only exchanges much shorter update 
+messages with other routers.
+
+BGP routers send and receive update messages to indicate a change in the 
+preferred path to reach a computer with a given IP address. If the router 
+decides to update its own routing tables because this new path is better, then 
+it will subsequently propagate this information to all of the other neighboring
+BGP routers to which it is connected, and they will in turn decide whether to 
+update their own tables and propagate the information further."
+
+Borrowed from http://www.livinginternet.com/i/iw_route_egp_bgp.htm.
+
+
+RIP: Routing Information Protocal
+
+"If one network goes down, the network can quickly adapt to send packets 
+through another connection."
+
+
+OSPF: Open Shortest Path First
+
+Faster than RIP, but also more complex.
+RIP only keeps track of the closest router for each destination address, while 
+OSPF keeps track of a complete topological database of all connections in the 
+local network.
+

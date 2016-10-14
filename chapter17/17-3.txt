@@ -1,0 +1,28 @@
+17.3 Compare and contrast the IPv4 and IPv6 protocols.
+
+
+Solution:
+
+IPv4
+1. Most widely used protocol right now.
+2. 32 bit addressing.
+3. Five different types: A, B, C, D and E. A,B,c are used in common practice. D
+   reserved for multicast. E simply reserved.
+4. Notation: 239.255.255.255, 255.255.255.0
+
+
+IPv6
+1. Next generation protocol for internet.
+2. 128 bit addressing.
+3. Three types: Unicast addresses, multicast addresses, and anycast addresses.
+4. Notation: 8 groups of hexadecimal quartets separated by colons.
+
+IPv6 can provide solution for:
+1. Increased address space
+2. More efficient routing
+3. Reduced management requirement
+4. Improved methods to change ISP
+5. Better mobility support
+6. Multi-homing ?
+7. Security
+8. Scoped address: link-local, site-local, and global-address space.

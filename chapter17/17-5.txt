@@ -1,0 +1,33 @@
+17.5 What are the differences between TCP and UDP? Explain how TCP handles 
+     reliable delivery (explain ACK mechanism), flow control (explain TCP 
+     sender's / receiver's window) and congestion control.
+
+
+Solution:
+
+TCP: Transmission Control Protocol
+1. Connection-oriented.
+2. Reliable, a message is guaranteed to arrive, unless the connection fails. It
+   will get re-transmited if lost.
+3. Ordered
+4. Heavy-weight: when TCP streams arrives in the wrong order, resend requests 
+   have to be sent.
+
+UDP: User Datagram Protocol
+1: connectionless
+2: Unreliable
+3: Not ordered
+4: Lightweight
+
+
+For each TCP packet, the receiver must acknowledge that the packet is received.
+If there is no acknowledgement, the packet is sent again.
+
+A TCP window is the amount of outstanding (unacknowledged by the recipient) 
+data a sender can send on a particular connection before it gets 
+acknowledgement back from the receiver.
+
+Congestion control:
+additive-increase-multiplicative-decrease scheme, slow start.
+
+Tahoe and Reno.

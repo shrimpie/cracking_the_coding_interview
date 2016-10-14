@@ -1,0 +1,19 @@
+17.4 What is a network / subnet mask? Explain how host A sends a message /
+     packet to host B when: (a) both are on same network and (b) both are on 
+     different networks. Explain which layer makes the routing decision and 
+     how.
+
+Solution:
+
+Simple version
+
+The mask is to get the network address by AND operation between the network 
+mask and the IP address. The remaining bits indicate host addresses.
+
+If they are on the same network, host addresses are used to identify each 
+other.
+If they are on different network, the router uses network mask to identify the
+network. The host addresses are used to identify each other too.
+
+The network layer is responsible for making routing decision. A routing table 
+is used to store the path information and the cost.
